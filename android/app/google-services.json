@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "553795253125",
+    "project_id": "bong-anime-fandom",
+    "storage_bucket": "bong-anime-fandom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553795253125:android:1f6ec554f1e8b3fe90caec",
+        "android_client_info": {
+          "package_name": "com.deb.anime_fandom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553795253125-4u9srgrr32m7n7pafdts8b5a63t00dnq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrfZaKcfWIGEb7FnkIhf_9Nv0tLLEqkkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553795253125-4u9srgrr32m7n7pafdts8b5a63t00dnq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
