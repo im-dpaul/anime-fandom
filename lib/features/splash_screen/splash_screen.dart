@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         HiveServices.getToken() != null
             ? AppRoutes.homeScreen
-            : AppRoutes.signinOtpScreen,
+            : AppRoutes.homeScreen,
         (val) => false,
       ),
     );
