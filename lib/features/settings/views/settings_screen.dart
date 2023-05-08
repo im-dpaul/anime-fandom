@@ -13,11 +13,9 @@ class SettingsScreen extends ConsumerStatefulWidget {
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Center(
-          child: Text("Settings"),
-        ),
+    return const Scaffold(
+      body: Center(
+        child: Text("Settings"),
       ),
     );
   }

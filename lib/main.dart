@@ -1,5 +1,6 @@
 import 'package:anime_fandom/config/size_config.dart';
 import 'package:anime_fandom/constants/app_colors.dart';
+import 'package:anime_fandom/features/dashboard/controllers/home_controller.dart';
 import 'package:anime_fandom/routes/app_routes.dart';
 import 'package:anime_fandom/features/authentication/controllers/signup_provider.dart';
 import 'package:anime_fandom/features/authentication/controllers/signin_provider.dart';
@@ -18,6 +19,11 @@ final signupProvider = StateNotifierProvider<SignupNotifier, SignupProvider>(
 
 final signinProvider = StateNotifierProvider<SigninNotifier, SigninProvider>(
   (ref) => SigninNotifier(),
+);
+
+final homeController =
+    StateNotifierProvider<HomeControllerNotifier, HomeController>(
+  (ref) => HomeControllerNotifier(),
 );
 
 void main() async {
