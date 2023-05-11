@@ -4,6 +4,13 @@ import 'package:flutter/material.dart';
 class AppTextStyles {
   // ---------- Black Colors ----------
 
+  static const f14W700Black = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    color: AppColors.black1,
+    letterSpacing: 0.8,
+  );
+
   static const f16W700Black = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w700,
@@ -196,6 +203,12 @@ class AppTextStyles {
   static const f18W500White = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w500,
+    color: AppColors.white,
+  );
+
+  static const f18W600White = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
     color: AppColors.white,
   );
 

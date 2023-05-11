@@ -65,6 +65,15 @@ class AppColors {
 
   // ---------- App Gradient Colors ----------
 
+  static const LinearGradient postGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [
+      AppColors.grey4,
+      AppColors.grey2,
+    ],
+  );
+
   static const LinearGradient calenderGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -95,7 +104,7 @@ class AppColors {
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
     colors: [
-      AppColors.grey2,
+      AppColors.grey4,
       AppColors.grey2,
     ],
   );

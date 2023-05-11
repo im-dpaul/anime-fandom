@@ -15,4 +15,27 @@ class ImagePath {
 
   static const icOtp = 'assets/images/ic_otp.png';
   static const icPassword = 'assets/images/ic_password.png';
+
+  static const icBack = 'assets/images/ic_back.png';
+  static const icMenu = 'assets/images/ic_menu.png';
+
+  static const icHeartOn = 'assets/images/ic_heart_on.png';
+  static const icHeartOff = 'assets/images/ic_heart_off.png';
+
+  static const icChatOn = 'assets/images/ic_chat_on.png';
+  static const icChatOff = 'assets/images/ic_chat_off.png';
+
+  static const icShareOn = 'assets/images/ic_share_on.png';
+  static const icShareOff = 'assets/images/ic_share_off.png';
+
+  static const icCommentOn = 'assets/images/ic_comment_on.png';
+  static const icCommentOff = 'assets/images/ic_comment_off.png';
+
+  static const icStarOn = 'assets/images/ic_star_on.png';
+  static const icStarOff = 'assets/images/ic_star_off.png';
+
+  static const icUser = 'assets/images/ic_user.png';
+
+  static const icCancel = 'assets/images/ic_cancel.png';
+  static const icDownload = 'assets/images/ic_download.png';
 }
