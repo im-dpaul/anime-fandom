@@ -1,13 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'dart:developer';
 
 import 'package:anime_fandom/config/size_config.dart';
 import 'package:anime_fandom/constants/app_colors.dart';
 import 'package:anime_fandom/constants/image_path.dart';
-import 'package:anime_fandom/features/explore/repository/explore_repository.dart';
 import 'package:anime_fandom/main.dart';
+import 'package:anime_fandom/utils/common_methods/notification_controller.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_snackbar.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
@@ -24,6 +24,7 @@ class CustomImageDialog extends ConsumerStatefulWidget {
 class _CustomImageDialogState extends ConsumerState<CustomImageDialog> {
   @override
   void initState() {
+    // NotificationController().setNotificationListener(context);
     super.initState();
   }
 
@@ -56,11 +57,18 @@ class _CustomImageDialogState extends ConsumerState<CustomImageDialog> {
                               .downloadImage(
                                   imageURL: widget.imageURL, save: true);
                           if (path != null) {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("success"),
-                              backgroundColor: AppColors.green2,
-                            ));
+                            final img = path.split('/')[6];
+                            await NotificationController().showNotification(
+                              id: 1,
+                              title: img,
+                              body: 'Download complete.',
+                              bigPicture: widget
+                                  .imageURL, //'asset://assets/frediLogoSlogan.png',
+                              largeIcon: widget.imageURL,
+                              notificationLayout: NotificationLayout.BigPicture,
+                              category: NotificationCategory.Promo,
+                              hideLargeIconOnExpand: true,
+                            );
                             CustomSnackbar.showSnackbar(
                               context: context,
                               backgroundColor: AppColors.green2,

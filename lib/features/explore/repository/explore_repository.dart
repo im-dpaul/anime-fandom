@@ -8,12 +8,13 @@ class ExploreRepository {
     try {
       Dio dio = Dio();
       String filePath;
+      final name = DateTime.now().millisecondsSinceEpoch;
       if (save != null && save) {
-        final name = DateTime.now().millisecondsSinceEpoch;
-        filePath = '/storage/emulated/0/Download/image-$name.jpg';
+        filePath =
+            '/storage/emulated/0/Download/Anime Fandom/AnimeFandom-$name.jpg';
       } else {
         var dir = await getApplicationDocumentsDirectory();
-        filePath = '${dir.path}/image.jpg';
+        filePath = '${dir.path}/AnimeFandom-$name.jpg';
       }
       log('File Name in path = $filePath');
       final response = await dio.download(

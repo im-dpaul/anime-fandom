@@ -3,20 +3,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeController {
   int selectedIndex = 2;
+  bool visibleBottomNavBar = true;
   PageController pageController = PageController(initialPage: 2);
 
   HomeController({
     required this.selectedIndex,
     required this.pageController,
+    required this.visibleBottomNavBar,
   });
 
   HomeController copyWith({
     int? selectedIndex,
+    bool? visibleBottomNavBar,
     PageController? pageController,
   }) {
     return HomeController(
       selectedIndex: selectedIndex ?? this.selectedIndex,
       pageController: pageController ?? this.pageController,
+      visibleBottomNavBar: visibleBottomNavBar ?? this.visibleBottomNavBar,
     );
   }
 
@@ -57,6 +61,7 @@ class HomeControllerNotifier extends StateNotifier<HomeController> {
       : super(
           HomeController(
             selectedIndex: 2,
+            visibleBottomNavBar: true,
             pageController: PageController(initialPage: 2),
           ),
         );
@@ -64,7 +69,12 @@ class HomeControllerNotifier extends StateNotifier<HomeController> {
   onPageChanged(int index) {
     state = state.copyWith(
       selectedIndex: index,
+      visibleBottomNavBar: true,
       pageController: PageController(),
     );
+  }
+
+  setBottomNavBarVisibility(bool val) {
+    state = state.copyWith(visibleBottomNavBar: val);
   }
 }

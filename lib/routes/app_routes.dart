@@ -2,17 +2,29 @@ import 'package:anime_fandom/features/authentication/views/signin_password_scree
 import 'package:anime_fandom/features/authentication/views/signin_otp_screen.dart';
 import 'package:anime_fandom/features/authentication/views/signup_screen.dart';
 import 'package:anime_fandom/features/authentication/views/user_details_screen.dart';
+import 'package:anime_fandom/features/chat/views/chat_screen.dart';
 import 'package:anime_fandom/features/dashboard/views/home_screen.dart';
+import 'package:anime_fandom/features/notifications/views/notifications_screen.dart';
+import 'package:anime_fandom/features/profile/views/profile_screen.dart';
+import 'package:anime_fandom/features/search/views/search_screen.dart';
+import 'package:anime_fandom/features/settings/views/settings_screen.dart';
 import 'package:anime_fandom/features/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
   static const String splashScreen = '/splashScreen';
+
   static const String userDetailsScreen = '/userDetailsScreen';
   static const String signupScreen = '/signupScreen';
   static const String signinOtpScreen = '/signinOtpScreen';
   static const String signinPasswordScreen = '/signinPasswordScreen';
+
   static const String homeScreen = '/homeScreen';
+  static const String profileScreen = '/profileScreen';
+  static const String searchScreen = '/searchScreen';
+  static const String chatScreen = '/chatScreen';
+  static const String settingsScreen = '/settingsScreen';
+  static const String notificationScreen = '/notificationScreen';
 }
 
 class GenerateRoutes {
@@ -31,6 +43,16 @@ class GenerateRoutes {
           builder: (context) => const SplashScreen(),
         );
 
+      case AppRoutes.userDetailsScreen:
+        return MaterialPageRoute(
+          builder: (context) => const UserDetailsScreen(),
+        );
+
+      case AppRoutes.signupScreen:
+        return MaterialPageRoute(
+          builder: (context) => const SignupScreen(),
+        );
+
       case AppRoutes.signinOtpScreen:
         return MaterialPageRoute(
           builder: (context) => const SigninOtpScreen(),
@@ -41,19 +63,34 @@ class GenerateRoutes {
           builder: (context) => const SigninPasswordScreen(),
         );
 
-      case AppRoutes.signupScreen:
-        return MaterialPageRoute(
-          builder: (context) => const SignupScreen(),
-        );
-
-      case AppRoutes.userDetailsScreen:
-        return MaterialPageRoute(
-          builder: (context) => const UserDetailsScreen(),
-        );
-
       case AppRoutes.homeScreen:
         return MaterialPageRoute(
           builder: (context) => const HomeScreen(),
+        );
+
+      case AppRoutes.profileScreen:
+        return MaterialPageRoute(
+          builder: (context) => const ProfileScreen(),
+        );
+
+      case AppRoutes.searchScreen:
+        return MaterialPageRoute(
+          builder: (context) => const SearchScreen(),
+        );
+
+      case AppRoutes.chatScreen:
+        return MaterialPageRoute(
+          builder: (context) => const ChatScreen(),
+        );
+
+      case AppRoutes.settingsScreen:
+        return MaterialPageRoute(
+          builder: (context) => const SettingsScreen(),
+        );
+
+      case AppRoutes.notificationScreen:
+        return MaterialPageRoute(
+          builder: (context) => const NotificationScreen(),
         );
 
       default:

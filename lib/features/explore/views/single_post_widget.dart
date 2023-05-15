@@ -19,7 +19,7 @@ class SinglePostWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool heart = false;
+    bool heart = true;
     return Container(
       decoration: BoxDecoration(
         gradient: AppColors.postGradient,
@@ -126,7 +126,8 @@ class SinglePostWidget extends ConsumerWidget {
                         context,
                         CustomImageDialog(
                           imageURL:
-                              'https://i.pinimg.com/originals/b1/6f/17/b16f17057928954c7b93772a92b37e36.jpg',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0sLS2SqBx7sXmD1focHt76O0YCHwK2nYRA-jre3x8BcYaNu1iRXywYC_4tiI6tzan58M&usqp=CAU',
+                          // 'https://i.pinimg.com/originals/b1/6f/17/b16f17057928954c7b93772a92b37e36.jpg',
                         ),
                       );
                     },
@@ -243,7 +244,7 @@ class SinglePostWidget extends ConsumerWidget {
                               [XFile(path)],
                               text:
                                   'One Direction, often shortened to 1D, are an English-Irish pop boy band formed in London in 2010. The group is composed of Niall Horan, Liam Payne, Harry Styles, Louis Tomlinson, and previously Zayn Malik until his departure from the group in March 2015.',
-                              subject: 'One Direction',
+                              subject: 'Anime Fandom',
                             );
                           } catch (e) {
                             log("Failed to share post",

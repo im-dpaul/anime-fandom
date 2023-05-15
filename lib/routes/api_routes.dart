@@ -1,5 +1,5 @@
 class ApiRoutes {
-  static const baseURL = 'https://b43d-182-69-177-54.ngrok-free.app';
+  static const baseURL = 'https://anime-fandom-backend-staging.vercel.app';
 
   // authentication URLs
   static const userExistURL = '$baseURL/api/v1/user/check';
@@ -9,7 +9,8 @@ class ApiRoutes {
   static const forgetPasswordURL = '';
 
   // content URLs
-  static const getContentURL = '';
+  static const getSingleContentURL = '';
+  static const getAllContentsURL = '';
   static const postContentURL = '';
   static const updateContentURL = '';
 

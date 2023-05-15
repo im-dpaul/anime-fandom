@@ -1,5 +1,6 @@
 import 'package:anime_fandom/constants/image_path.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_app_bar.dart';
+import 'package:anime_fandom/utils/common_widgets/custom_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -38,6 +39,7 @@ class _NotificationScreenState extends ConsumerState<NotificationScreen> {
       body: const Center(
         child: Text("Notifiactions"),
       ),
+      // bottomNavigationBar: const CustomBottomNavBar(),
     );
   }
 }

@@ -7,6 +7,7 @@ import 'package:anime_fandom/features/profile/views/profile_screen.dart';
 import 'package:anime_fandom/features/search/views/search_screen.dart';
 import 'package:anime_fandom/features/settings/views/settings_screen.dart';
 import 'package:anime_fandom/main.dart';
+import 'package:anime_fandom/utils/common_widgets/custom_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -34,56 +35,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           SearchScreen(),
           ExploreScreen(),
           NotificationScreen(),
-          SettingsScreen(),
+          ProfileScreen(),
         ],
       ),
-      bottomNavigationBar: Container(
-        color: AppColors.bgColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          child: GNav(
-            selectedIndex: ref
-                .watch(homeController.select((value) => value.selectedIndex)),
-            onTabChange: (index) {
-              ref.read(homeController
-                  .select((value) => value.pageController.jumpToPage(index)));
-              ref.read(homeController.notifier).onPageChanged(index);
-            },
-            gap: 6,
-            iconSize: 24,
-            color: AppColors.black1,
-            activeColor: AppColors.white,
-            backgroundColor: AppColors.bgColor,
-            tabBackgroundColor: AppColors.grey2,
-            curve: Curves.easeInQuad,
-            style: GnavStyle.google,
-            duration: const Duration(milliseconds: 800),
-            padding:
-                const EdgeInsets.only(top: 12, bottom: 12, left: 14, right: 8),
-            tabs: const [
-              GButton(
-                icon: Icons.message_outlined,
-                text: "Chats",
-              ),
-              GButton(
-                icon: Icons.search_outlined,
-                text: "Search",
-              ),
-              GButton(
-                icon: Icons.explore_outlined,
-                text: "Explore",
-              ),
-              GButton(
-                icon: Icons.notifications_active_outlined,
-                text: "Notifications",
-              ),
-              GButton(
-                icon: Icons.settings_outlined,
-                text: "Settings",
-              ),
-            ],
-          ),
-        ),
+      bottomNavigationBar: Visibility(
+        visible: ref
+            .watch(homeController.select((value) => value.visibleBottomNavBar)),
+        child: const CustomBottomNavBar(),
       ),
     );
   }
