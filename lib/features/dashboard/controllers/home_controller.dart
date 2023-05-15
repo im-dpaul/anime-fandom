@@ -1,14 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeController {
   int selectedIndex = 2;
   bool visibleBottomNavBar = true;
+  ScrollController scrollController = ScrollController();
   PageController pageController = PageController(initialPage: 2);
 
   HomeController({
     required this.selectedIndex,
     required this.pageController,
+    required this.scrollController,
     required this.visibleBottomNavBar,
   });
 
@@ -16,44 +21,15 @@ class HomeController {
     int? selectedIndex,
     bool? visibleBottomNavBar,
     PageController? pageController,
+    ScrollController? scrollController,
   }) {
     return HomeController(
       selectedIndex: selectedIndex ?? this.selectedIndex,
       pageController: pageController ?? this.pageController,
+      scrollController: scrollController ?? this.scrollController,
       visibleBottomNavBar: visibleBottomNavBar ?? this.visibleBottomNavBar,
     );
   }
-
-  // Map<String, dynamic> toMap() {
-  //   return <String, dynamic>{
-  //     'selectedIndex': selectedIndex,
-  //   };
-  // }
-
-  // factory HomeController.fromMap(Map<String, dynamic> map) {
-  //   return HomeController(
-
-  //     selectedIndex: map['selectedIndex'] as int,
-  //   );
-  // }
-
-  // String toJson() => json.encode(toMap());
-
-  // factory HomeController.fromJson(String source) => HomeController.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  // @override
-  // String toString() => 'HomeController(selectedIndex: $selectedIndex)';
-
-  // @override
-  // bool operator ==(covariant HomeController other) {
-  //   if (identical(this, other)) return true;
-
-  //   return
-  //     other.selectedIndex == selectedIndex;
-  // }
-
-  // @override
-  // int get hashCode => selectedIndex.hashCode;
 }
 
 class HomeControllerNotifier extends StateNotifier<HomeController> {
@@ -62,6 +38,7 @@ class HomeControllerNotifier extends StateNotifier<HomeController> {
           HomeController(
             selectedIndex: 2,
             visibleBottomNavBar: true,
+            scrollController: ScrollController(),
             pageController: PageController(initialPage: 2),
           ),
         );
@@ -76,5 +53,21 @@ class HomeControllerNotifier extends StateNotifier<HomeController> {
 
   setBottomNavBarVisibility(bool val) {
     state = state.copyWith(visibleBottomNavBar: val);
+    log("val --> ${state.visibleBottomNavBar}");
+  }
+
+  addScrollListener() {
+    state.scrollController.addListener(
+      () {
+        if (state.scrollController.position.userScrollDirection ==
+            ScrollDirection.reverse) {
+          state = state.copyWith(visibleBottomNavBar: false);
+        }
+        if (state.scrollController.position.userScrollDirection ==
+            ScrollDirection.forward) {
+          state = state.copyWith(visibleBottomNavBar: true);
+        }
+      },
+    );
   }
 }

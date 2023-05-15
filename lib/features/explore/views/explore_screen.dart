@@ -1,11 +1,7 @@
 import 'dart:developer';
-
-import 'package:anime_fandom/constants/app_colors.dart';
 import 'package:anime_fandom/constants/image_path.dart';
 import 'package:anime_fandom/features/explore/views/single_post_widget.dart';
 import 'package:anime_fandom/main.dart';
-import 'package:anime_fandom/utils/common_widgets/custom_app_bar.dart';
-import 'package:anime_fandom/utils/common_widgets/custom_bottom_nav_bar.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_sliver_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -19,42 +15,14 @@ class ExploreScreen extends ConsumerStatefulWidget {
 }
 
 class _ExploreScreenState extends ConsumerState<ExploreScreen> {
-  addListener() {
-    ref
-        .read(exploreController.select((value) => value.scrollController))
-        .addListener(
-      () {
-        if (ref
-                .watch(
-                    exploreController.select((value) => value.scrollController))
-                .position
-                .userScrollDirection ==
-            ScrollDirection.reverse) {
-          // ref.read(exploreController.notifier).setBottomNavBarVisibility(false);
-          log("false ok");
-        }
-        if (ref
-                .watch(
-                    exploreController.select((value) => value.scrollController))
-                .position
-                .userScrollDirection ==
-            ScrollDirection.forward) {
-          log("true ok");
-          // ref.read(exploreController.notifier).setBottomNavBarVisibility(true);
-        }
-      },
-    );
-  }
-
   @override
   void initState() {
+    ref.read(homeController.notifier).addScrollListener();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    addListener();
-
     return Scaffold(
       // appBar: CustomAppBar(
       //   parentContext: context,
@@ -79,8 +47,8 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
       // ),
       body: NestedScrollView(
         floatHeaderSlivers: true,
-        controller: ref
-            .watch(exploreController.select((value) => value.scrollController)),
+        controller:
+            ref.watch(homeController.select((value) => value.scrollController)),
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             CustomSliverAppBar(
