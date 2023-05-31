@@ -4,29 +4,20 @@ import 'dart:developer';
 import 'package:anime_fandom/config/size_config.dart';
 import 'package:anime_fandom/constants/app_colors.dart';
 import 'package:anime_fandom/constants/image_path.dart';
-import 'package:anime_fandom/main.dart';
+import 'package:anime_fandom/features/explore/controllers/explore_screen_controller.dart';
 import 'package:anime_fandom/utils/common_methods/notification_controller.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_snackbar.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 
-// ignore: must_be_immutable
-class CustomImageDialog extends ConsumerStatefulWidget {
-  String imageURL;
+class CustomImageDialog extends StatelessWidget {
+  final String imageURL;
   CustomImageDialog({required this.imageURL, super.key});
 
-  @override
-  ConsumerState<CustomImageDialog> createState() => _CustomImageDialogState();
-}
-
-class _CustomImageDialogState extends ConsumerState<CustomImageDialog> {
-  @override
-  void initState() {
-    // NotificationController().setNotificationListener(context);
-    super.initState();
-  }
+  ExploreScreenController exploreScreenController =
+      Get.put(ExploreScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -52,19 +43,18 @@ class _CustomImageDialogState extends ConsumerState<CustomImageDialog> {
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: GestureDetector(
                         onTap: () async {
-                          String? path = await ref
-                              .read(exploreController.notifier)
-                              .downloadImage(
-                                  imageURL: widget.imageURL, save: true);
+                          String? path = await exploreScreenController
+                              .downloadImage(imageURL: imageURL, save: true);
+
                           if (path != null) {
                             final img = path.split('/')[6];
                             await NotificationController().showNotification(
                               id: 1,
                               title: img,
                               body: 'Download complete.',
-                              bigPicture: widget
-                                  .imageURL, //'asset://assets/frediLogoSlogan.png',
-                              largeIcon: widget.imageURL,
+                              bigPicture:
+                                  imageURL, //'asset://assets/frediLogoSlogan.png',
+                              largeIcon: imageURL,
                               notificationLayout: NotificationLayout.BigPicture,
                               category: NotificationCategory.Promo,
                               hideLargeIconOnExpand: true,
@@ -92,9 +82,8 @@ class _CustomImageDialogState extends ConsumerState<CustomImageDialog> {
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: GestureDetector(
                         onTap: () async {
-                          String? path = await ref
-                              .read(exploreController.notifier)
-                              .downloadImage(imageURL: widget.imageURL);
+                          String? path = await exploreScreenController
+                              .downloadImage(imageURL: imageURL);
                           if (path != null) {
                             try {
                               await Share.shareXFiles(
@@ -139,7 +128,7 @@ class _CustomImageDialogState extends ConsumerState<CustomImageDialog> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Image.network(
-                    widget.imageURL,
+                    imageURL,
                     fit: BoxFit.contain,
                     // height: SizeConfig.screenHeight! * 0.9,
                     width: SizeConfig.screenWidth,

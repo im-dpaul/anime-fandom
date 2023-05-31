@@ -1,24 +1,31 @@
-// ignore_for_file: use_build_context_synchronously
-
+// ignore_for_file: use_build_context_synchronously, must_be_immutable
 import 'dart:developer';
 
 import 'package:anime_fandom/config/size_config.dart';
 import 'package:anime_fandom/constants/app_colors.dart';
 import 'package:anime_fandom/constants/app_text_styles.dart';
 import 'package:anime_fandom/constants/image_path.dart';
-import 'package:anime_fandom/main.dart';
+import 'package:anime_fandom/features/explore/controllers/explore_screen_controller.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_dialog_widget.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_image_dialog.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:get/get.dart';
 
-class SinglePostWidget extends ConsumerWidget {
+class SinglePostWidget extends StatefulWidget {
   const SinglePostWidget({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  State<SinglePostWidget> createState() => _SinglePostWidgetState();
+}
+
+class _SinglePostWidgetState extends State<SinglePostWidget> {
+  ExploreScreenController exploreScreenController =
+      Get.put(ExploreScreenController());
+
+  @override
+  Widget build(BuildContext context) {
     bool heart = true;
     return Container(
       decoration: BoxDecoration(
@@ -74,8 +81,8 @@ class SinglePostWidget extends ConsumerWidget {
                     SizedBox(
                       height: 2 * SizeConfig.heightMultiplier!,
                     ),
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                         Text(
                           "2h",
                           style: AppTextStyles.f14W400Grey5,
@@ -151,10 +158,10 @@ class SinglePostWidget extends ConsumerWidget {
                 child: SizedBox(
                   height: 18 * SizeConfig.heightMultiplier!,
                   width: SizeConfig.screenWidth,
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       Visibility(
                         visible: true,
                         child: Text(
@@ -233,11 +240,10 @@ class SinglePostWidget extends ConsumerWidget {
                     const Spacer(),
                     GestureDetector(
                       onTap: () async {
-                        String? path = await ref
-                            .read(exploreController.notifier)
-                            .downloadImage(
-                                imageURL:
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0sLS2SqBx7sXmD1focHt76O0YCHwK2nYRA-jre3x8BcYaNu1iRXywYC_4tiI6tzan58M&usqp=CAU');
+                        const imageURL =
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0sLS2SqBx7sXmD1focHt76O0YCHwK2nYRA-jre3x8BcYaNu1iRXywYC_4tiI6tzan58M&usqp=CAU';
+                        String? path = await exploreScreenController
+                            .downloadImage(imageURL: imageURL);
                         if (path != null) {
                           try {
                             await Share.shareXFiles(

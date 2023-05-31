@@ -1,22 +1,24 @@
 import 'package:anime_fandom/constants/image_path.dart';
+import 'package:anime_fandom/features/dashboard/controllers/home_screen_controller.dart';
 import 'package:anime_fandom/features/explore/views/single_post_widget.dart';
-import 'package:anime_fandom/main.dart';
 import 'package:anime_fandom/routes/app_routes.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_sliver_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
-class ExploreScreen extends ConsumerStatefulWidget {
+class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
 
   @override
-  ConsumerState<ExploreScreen> createState() => _ExploreScreenState();
+  State<ExploreScreen> createState() => _ExploreScreenState();
 }
 
-class _ExploreScreenState extends ConsumerState<ExploreScreen> {
+class _ExploreScreenState extends State<ExploreScreen> {
+  final HomeScreenController homeScreenController =
+      Get.put(HomeScreenController());
   @override
   void initState() {
-    ref.read(homeController.notifier).addScrollListener();
+    homeScreenController.addScrollListener();
     super.initState();
   }
 
@@ -25,8 +27,7 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
     return Scaffold(
       body: NestedScrollView(
         floatHeaderSlivers: true,
-        controller:
-            ref.watch(homeController.select((value) => value.scrollController)),
+        controller: homeScreenController.scrollController.value,
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             CustomSliverAppBar(

@@ -5,7 +5,6 @@ import 'package:anime_fandom/constants/constant_data.dart';
 import 'package:anime_fandom/constants/image_path.dart';
 import 'package:anime_fandom/core/hive_services.dart';
 import 'package:anime_fandom/routes/app_routes.dart';
-import 'package:anime_fandom/features/authentication/controllers/signin_provider.dart';
 import 'package:anime_fandom/main.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_bottom_sheet.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_button.dart';
@@ -16,7 +15,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart' as p;
 
 class SigninOtpScreen extends StatefulWidget {
   const SigninOtpScreen({super.key});
@@ -220,52 +218,47 @@ class _SigninOtpScreenState extends State<SigninOtpScreen> {
                                           child: Padding(
                                             padding: MediaQuery.of(context)
                                                 .viewInsets,
-                                            child: p.Consumer<LoginProvider>(
-                                              builder: (context, loginProvider,
-                                                      child) =>
-                                                  CustomOtpWidget(
-                                                countryCode: widgetRef.read(
-                                                    signinProvider.select(
-                                                        (value) =>
-                                                            value.countryCode)),
-                                                phoneController: widgetRef.read(
-                                                    signinProvider.select(
-                                                        (value) => value
-                                                            .phoneController
-                                                            .text)),
-                                                otpController: widgetRef.watch(
-                                                    signinProvider.select(
-                                                        (value) => value
-                                                            .otpController)),
-                                                // isOtpVerified:
-                                                //     loginProvider.isOtpValid,
-                                                isOtpVerified: widgetRef.watch(
-                                                    signinProvider.select(
-                                                        (value) => value
-                                                            .isOtpVerified)),
-                                                otpControllerClear: () {
-                                                  Navigator.pop(context);
-                                                  widgetRef
-                                                      .read(signinProvider)
-                                                      .otpController
-                                                      .clear();
-                                                  _phoneFocusNode
-                                                      .requestFocus();
-                                                },
-                                                verifyOTP: (value) async {
-                                                  await widgetRef
-                                                      .read(signinProvider
-                                                          .notifier)
-                                                      .verifyOTP(
-                                                          context: context);
-                                                },
-                                                changeOtpVerified: (value) {
-                                                  widgetRef
-                                                      .read(signinProvider
-                                                          .notifier)
-                                                      .changeOtpVerified();
-                                                },
-                                              ),
+                                            child: CustomOtpWidget(
+                                              countryCode: widgetRef.read(
+                                                  signinProvider.select(
+                                                      (value) =>
+                                                          value.countryCode)),
+                                              phoneController: widgetRef.read(
+                                                  signinProvider.select(
+                                                      (value) => value
+                                                          .phoneController
+                                                          .text)),
+                                              otpController: widgetRef.watch(
+                                                  signinProvider.select(
+                                                      (value) =>
+                                                          value.otpController)),
+                                              // isOtpVerified:
+                                              //     loginProvider.isOtpValid,
+                                              isOtpVerified: widgetRef.watch(
+                                                  signinProvider.select(
+                                                      (value) =>
+                                                          value.isOtpVerified)),
+                                              otpControllerClear: () {
+                                                Navigator.pop(context);
+                                                widgetRef
+                                                    .read(signinProvider)
+                                                    .otpController
+                                                    .clear();
+                                                _phoneFocusNode.requestFocus();
+                                              },
+                                              verifyOTP: (value) async {
+                                                await widgetRef
+                                                    .read(
+                                                        signinProvider.notifier)
+                                                    .verifyOTP(
+                                                        context: context);
+                                              },
+                                              changeOtpVerified: (value) {
+                                                widgetRef
+                                                    .read(
+                                                        signinProvider.notifier)
+                                                    .changeOtpVerified();
+                                              },
                                             ),
                                           ),
                                         ),

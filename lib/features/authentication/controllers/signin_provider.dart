@@ -199,7 +199,6 @@ class SigninNotifier extends StateNotifier<SigninProvider> {
           ),
         );
 
-  LoginProvider loginProvider = LoginProvider();
   final AuthRepository authRepository = AuthRepository();
 
   setForgetPassword({required bool val}) {
@@ -277,7 +276,6 @@ class SigninNotifier extends StateNotifier<SigninProvider> {
 
   changeOtpVerified() {
     state = state.copyWith(isOtpVerified: true);
-    loginProvider.setIsOtpValid(true);
     // isOtpVerified = true;
   }
 
@@ -320,13 +318,11 @@ class SigninNotifier extends StateNotifier<SigninProvider> {
       BuildContext context, PhoneAuthCredential phoneAuthCredential) async {
     state = state.copyWith(authCredential: phoneAuthCredential);
     state = state.copyWith(isOtpVerified: true);
-    loginProvider.setIsOtpValid(true);
     login(context: context);
   }
 
   verficationFailed(FirebaseAuthException e) {
     state = state.copyWith(isOtpVerified: false);
-    loginProvider.setIsOtpValid(false);
     log('${e.message} Login Verification Failed');
   }
 
@@ -350,7 +346,6 @@ class SigninNotifier extends StateNotifier<SigninProvider> {
           await state.firbaseAuth.signInWithCredential(state.authCredential!);
 
       state = state.copyWith(isOtpVerified: true);
-      loginProvider.setIsOtpValid(true);
 
       Response response = await signInWithOtp();
 
@@ -370,7 +365,6 @@ class SigninNotifier extends StateNotifier<SigninProvider> {
       }
     } catch (e) {
       state = state.copyWith(isOtpVerified: false);
-      loginProvider.setIsOtpValid(false);
       log('SignIn Error: ${e.toString()}');
     }
   }
@@ -445,14 +439,5 @@ class SigninNotifier extends StateNotifier<SigninProvider> {
     Response response =
         await authRepository.signInWithOtp(phoneNo: state.phoneController.text);
     return response;
-  }
-}
-
-class LoginProvider with ChangeNotifier {
-  bool isOtpValid = true;
-
-  void setIsOtpValid(bool val) {
-    isOtpValid = val;
-    notifyListeners();
   }
 }
