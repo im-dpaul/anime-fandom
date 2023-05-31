@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:anime_fandom/config/size_config.dart';
 import 'package:anime_fandom/constants/app_colors.dart';
 import 'package:anime_fandom/constants/app_text_styles.dart';
@@ -15,7 +13,6 @@ import 'package:anime_fandom/utils/common_widgets/custom_password_field.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_snackbar.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_text_field.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,8 +27,6 @@ class SignupScreen extends ConsumerStatefulWidget {
 
 class _SignupScreenState extends ConsumerState<SignupScreen> {
   final FocusNode _phoneFocusNode = FocusNode();
-  final FocusNode _otpFocusNode = FocusNode();
-  final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _confirmPasswordFocusNode = FocusNode();
   final defaultPinTheme = PinTheme(

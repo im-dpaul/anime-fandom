@@ -1,10 +1,9 @@
-import 'dart:developer';
 import 'package:anime_fandom/constants/image_path.dart';
 import 'package:anime_fandom/features/explore/views/single_post_widget.dart';
 import 'package:anime_fandom/main.dart';
+import 'package:anime_fandom/routes/app_routes.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_sliver_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ExploreScreen extends ConsumerStatefulWidget {
@@ -24,27 +23,6 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: CustomAppBar(
-      //   parentContext: context,
-      //   title: "Anime Fandom",
-      //   actions: [
-      //     Padding(
-      //       padding: const EdgeInsets.only(right: 16.0),
-      //       child: GestureDetector(
-      //         onTap: () {},
-      //         child: Image.asset(
-      //           ImagePath.icMenu,
-      //           // height: 22,
-      //           width: 22,
-      //         ),
-      //         // child: const CircleAvatar(
-      //         //   backgroundColor: AppColors.date15,
-      //         //   radius: 16,
-      //         // ),
-      //       ),
-      //     ),
-      //   ],
-      // ),
       body: NestedScrollView(
         floatHeaderSlivers: true,
         controller:
@@ -58,46 +36,27 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
                 Padding(
                   padding: const EdgeInsets.only(right: 16.0),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.settingsScreen,
+                      );
+                    },
                     child: Image.asset(
                       ImagePath.icMenu,
-                      // height: 22,
                       width: 22,
                     ),
-                    // child: const CircleAvatar(
-                    //   backgroundColor: AppColors.date15,
-                    //   radius: 16,
-                    // ),
                   ),
                 ),
               ],
             ),
-            // SliverAppBar(
-            //   title: const Text("Anime Fandom"),
-            //   backgroundColor: AppColors.bgColor,
-            //   actions: [
-            //     Padding(
-            //       padding: const EdgeInsets.only(right: 16.0),
-            //       child: GestureDetector(
-            //         onTap: () {},
-            //         child: Image.asset(
-            //           ImagePath.icMenu,
-            //           // height: 22,
-            //           width: 22,
-            //         ),
-            //         // child: const CircleAvatar(
-            //         //   backgroundColor: AppColors.date15,
-            //         //   radius: 16,
-            //         // ),
-            //       ),
-            //     ),
-            //   ],
-            //   floating: true,
-            //   snap: true,
-            // ),
           ];
         },
-        body: Padding(
+        body:
+            // isLoading
+            //     ? const ExploreScreenShimmer()
+            //     :
+            Padding(
           padding: const EdgeInsets.only(right: 8, left: 8, top: 0),
           child: Column(
             children: [

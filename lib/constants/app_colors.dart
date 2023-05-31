@@ -74,6 +74,15 @@ class AppColors {
     ],
   );
 
+  static const LinearGradient shimmerGradient = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    colors: [
+      AppColors.grey4,
+      AppColors.grey2,
+    ],
+  );
+
   static const LinearGradient calenderGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,

@@ -26,8 +26,6 @@ class UserDetailsScreen extends ConsumerStatefulWidget {
 class _UserDetailsScreenState extends ConsumerState<UserDetailsScreen> {
   final FocusNode _firstNameFocusNode = FocusNode();
   final FocusNode _lastNameFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode = FocusNode();
-  final FocusNode _confirmPasswordFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
-import 'package:anime_fandom/features/chat/views/chat_screen.dart';
 import 'package:anime_fandom/features/explore/views/explore_screen.dart';
-import 'package:anime_fandom/features/notifications/views/notifications_screen.dart';
+import 'package:anime_fandom/features/favourite/views/favourite_screen.dart';
+import 'package:anime_fandom/features/new_post/views/create_post_screen.dart';
 import 'package:anime_fandom/features/profile/views/profile_screen.dart';
 import 'package:anime_fandom/features/search/views/search_screen.dart';
 import 'package:anime_fandom/main.dart';
@@ -27,10 +27,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ref.read(homeController.notifier).onPageChanged(value);
         },
         children: const [
-          ChatScreen(),
           SearchScreen(),
+          FavouriteScreen(),
           ExploreScreen(),
-          NotificationScreen(),
+          CreatePostScreen(),
           ProfileScreen(),
         ],
       ),

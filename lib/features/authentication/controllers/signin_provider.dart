@@ -1,13 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
 
-import 'package:anime_fandom/constants/app_colors.dart';
 import 'package:anime_fandom/constants/hive_keys.dart';
 import 'package:anime_fandom/core/hive_services.dart';
 import 'package:anime_fandom/routes/app_routes.dart';
-import 'package:anime_fandom/utils/common_widgets/custom_snackbar.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -456,7 +453,6 @@ class LoginProvider with ChangeNotifier {
 
   void setIsOtpValid(bool val) {
     isOtpValid = val;
-    log("changing");
     notifyListeners();
   }
 }

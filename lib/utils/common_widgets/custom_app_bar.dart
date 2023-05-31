@@ -76,7 +76,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         onTap: onTap,
                       )
                   : null,
-              leadingWidth: leadingIconWidth ?? 26),
+              leadingWidth: leadingIconWidth ?? 22),
         ),
       ),
     );

@@ -1,22 +1,21 @@
 import 'package:anime_fandom/constants/image_path.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NotificationScreen extends ConsumerStatefulWidget {
-  const NotificationScreen({super.key});
+class CreatePostScreen extends StatefulWidget {
+  const CreatePostScreen({super.key});
 
   @override
-  ConsumerState<NotificationScreen> createState() => _NotificationScreenState();
+  State<CreatePostScreen> createState() => _CreatePostScreenState();
 }
 
-class _NotificationScreenState extends ConsumerState<NotificationScreen> {
+class _CreatePostScreenState extends State<CreatePostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         parentContext: context,
-        title: "Notifications",
+        title: "Create Post",
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
@@ -36,7 +35,7 @@ class _NotificationScreenState extends ConsumerState<NotificationScreen> {
         ],
       ),
       body: const Center(
-        child: Text("Notification"),
+        child: Text("Create Post"),
       ),
       // bottomNavigationBar: const CustomBottomNavBar(),
     );

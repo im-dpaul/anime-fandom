@@ -39,20 +39,20 @@ class _CustomBottomNavBarState extends ConsumerState<CustomBottomNavBar> {
               const EdgeInsets.only(top: 12, bottom: 12, left: 14, right: 8),
           tabs: const [
             GButton(
-              icon: Icons.message_outlined,
-              text: "Chats",
-            ),
-            GButton(
               icon: Icons.search_outlined,
               text: "Search",
+            ),
+            GButton(
+              icon: Icons.star_border_outlined,
+              text: "Favourite",
             ),
             GButton(
               icon: Icons.explore_outlined,
               text: "Explore",
             ),
             GButton(
-              icon: Icons.notifications_active_outlined,
-              text: "Notifications",
+              icon: Icons.add_box_outlined,
+              text: "Create Post",
             ),
             GButton(
               icon: Icons.person_3_outlined,
