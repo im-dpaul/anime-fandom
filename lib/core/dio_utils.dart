@@ -28,7 +28,7 @@ class DioUtil {
             return handler.next(response);
           },
           onError: (DioError e, handler) async {
-            log('dio error: $e');
+            log('dio error: $e', name: "Dio Error");
             if (e.response != null) {
               handler.resolve(e.response!);
             }

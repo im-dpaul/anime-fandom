@@ -12,10 +12,12 @@ class AuthRepository {
     try {
       final response = await _dioInstance?.post(
         ApiRoutes.userExistURL,
-        data: jsonEncode({
-          if (phoneNo != null) "phoneNo": phoneNo,
-          if (email != null) "email": email,
-        }),
+        data: jsonEncode(
+          {
+            if (phoneNo != null) "phoneNo": phoneNo,
+            if (email != null) "email": email,
+          },
+        ),
       );
       return response;
     } catch (e) {

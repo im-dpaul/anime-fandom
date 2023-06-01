@@ -1,11 +1,13 @@
+import 'dart:developer';
+
 import 'package:anime_fandom/config/size_config.dart';
 import 'package:anime_fandom/constants/app_colors.dart';
 import 'package:anime_fandom/constants/app_text_styles.dart';
 import 'package:anime_fandom/constants/constant_data.dart';
 import 'package:anime_fandom/constants/image_path.dart';
 import 'package:anime_fandom/core/hive_services.dart';
+import 'package:anime_fandom/features/authentication/controllers/signin_controller.dart';
 import 'package:anime_fandom/routes/app_routes.dart';
-import 'package:anime_fandom/main.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_bottom_sheet.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_button.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_otp_widget.dart';
@@ -14,7 +16,7 @@ import 'package:anime_fandom/utils/common_widgets/custom_text_field.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
 class SigninOtpScreen extends StatefulWidget {
   const SigninOtpScreen({super.key});
@@ -25,6 +27,12 @@ class SigninOtpScreen extends StatefulWidget {
 
 class _SigninOtpScreenState extends State<SigninOtpScreen> {
   final FocusNode _phoneFocusNode = FocusNode();
+  SigninController signinController = Get.put(SigninController());
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,25 +61,21 @@ class _SigninOtpScreenState extends State<SigninOtpScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Consumer(
-                    builder: (context, widgetRef, child) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          SizedBox(height: 32 * SizeConfig.heightMultiplier!),
-                          CustomTextField(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(height: 32 * SizeConfig.heightMultiplier!),
+                      Obx(
+                        () {
+                          return CustomTextField(
                             focusNode: _phoneFocusNode,
                             onChanged: (value) {
-                              widgetRef
-                                  .read(signinProvider.notifier)
-                                  .isPhoneValid();
+                              signinController.setIsPhoneValid();
                             },
                             hintText: 'Phone Number',
                             maxLength: 10,
-                            textEditingController: widgetRef.watch(
-                              signinProvider
-                                  .select((value) => value.phoneController),
-                            ),
+                            textEditingController:
+                                signinController.phoneController.value,
                             keyboardType: TextInputType.number,
                             prefixIcon: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -86,9 +90,7 @@ class _SigninOtpScreenState extends State<SigninOtpScreen> {
                                       SizedBox(
                                           width:
                                               10 * SizeConfig.widthMultiplier!),
-                                      Text(
-                                          widgetRef.watch(signinProvider.select(
-                                              (value) => value.countryCode)),
+                                      Text(signinController.countryCode.value,
                                           style: AppTextStyles.f16W400White
                                               .copyWith(fontFamily: 'SF-Pro')),
                                       SizedBox(
@@ -107,8 +109,7 @@ class _SigninOtpScreenState extends State<SigninOtpScreen> {
                                       MediaQuery.of(context).size.width - 50,
                                   dropdownMaxHeight: 250,
                                   style: AppTextStyles.f16W400White,
-                                  value: widgetRef.watch(signinProvider
-                                      .select((value) => value.countryCode)),
+                                  value: signinController.countryCode.value,
                                   items: dialCodes
                                       .map(
                                           (country) => DropdownMenuItem<String>(
@@ -139,9 +140,7 @@ class _SigninOtpScreenState extends State<SigninOtpScreen> {
                                               ))
                                       .toList(),
                                   onChanged: (String? value) {
-                                    widgetRef
-                                        .read(signinProvider.notifier)
-                                        .selectCountryCode(value!);
+                                    signinController.selectCountryCode(value!);
                                   },
                                 ),
                                 SizedBox(
@@ -154,24 +153,25 @@ class _SigninOtpScreenState extends State<SigninOtpScreen> {
                                     width: 8 * SizeConfig.widthMultiplier!),
                               ],
                             ),
-                          ),
-                          SizedBox(height: 20 * SizeConfig.heightMultiplier!),
-                          Padding(
+                          );
+                        },
+                      ),
+                      SizedBox(height: 20 * SizeConfig.heightMultiplier!),
+                      Obx(
+                        () {
+                          return Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: CustomButton(
                               title: "Continue",
-                              color: widgetRef.watch(signinProvider
-                                      .select((value) => value.isPhoneComplete))
+                              color: signinController.isPhoneComplete.value
                                   ? AppColors.white
                                   : AppColors.grey2,
                               onTap: () async {
-                                if (widgetRef.watch(signinProvider.select(
-                                    (value) => value.isPhoneComplete))) {
+                                if (signinController.isPhoneComplete.value) {
                                   FocusScope.of(context).unfocus();
 
-                                  bool value = await widgetRef
-                                      .read(signinProvider.notifier)
-                                      .userExist(true);
+                                  bool value =
+                                      await signinController.userExist(true);
 
                                   if (value) {
                                     bool? userActive =
@@ -180,14 +180,10 @@ class _SigninOtpScreenState extends State<SigninOtpScreen> {
                                         HiveServices.getIsUserExist();
 
                                     if (userActive! && userExist!) {
-                                      widgetRef
-                                          .read(signinProvider)
-                                          .otpController
+                                      signinController.otpController.value
                                           .clear();
                                       // ignore: use_build_context_synchronously
-                                      widgetRef
-                                          .read(signinProvider.notifier)
-                                          .sendOTP(context);
+                                      signinController.sendOTP(context);
 
                                       // if (widgetRef.read(authenticationProvider
                                       //         .select((value) => value.timer)) !=
@@ -207,61 +203,99 @@ class _SigninOtpScreenState extends State<SigninOtpScreen> {
 
                                       // ignore: use_build_context_synchronously
                                       showModalBottomSheet(
+                                        showDragHandle: true,
                                         backgroundColor: AppColors.bgColor,
                                         isScrollControlled: true,
                                         shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(12),
-                                                topRight: Radius.circular(12))),
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(12),
+                                              topRight: Radius.circular(12)),
+                                        ),
                                         context: context,
-                                        builder: (context) => CustomBottomSheet(
-                                          child: Padding(
-                                            padding: MediaQuery.of(context)
-                                                .viewInsets,
-                                            child: CustomOtpWidget(
-                                              countryCode: widgetRef.read(
-                                                  signinProvider.select(
-                                                      (value) =>
-                                                          value.countryCode)),
-                                              phoneController: widgetRef.read(
-                                                  signinProvider.select(
-                                                      (value) => value
-                                                          .phoneController
-                                                          .text)),
-                                              otpController: widgetRef.watch(
-                                                  signinProvider.select(
-                                                      (value) =>
-                                                          value.otpController)),
-                                              // isOtpVerified:
-                                              //     loginProvider.isOtpValid,
-                                              isOtpVerified: widgetRef.watch(
-                                                  signinProvider.select(
-                                                      (value) =>
-                                                          value.isOtpVerified)),
-                                              otpControllerClear: () {
-                                                Navigator.pop(context);
-                                                widgetRef
-                                                    .read(signinProvider)
-                                                    .otpController
-                                                    .clear();
-                                                _phoneFocusNode.requestFocus();
-                                              },
-                                              verifyOTP: (value) async {
-                                                await widgetRef
-                                                    .read(
-                                                        signinProvider.notifier)
-                                                    .verifyOTP(
-                                                        context: context);
-                                              },
-                                              changeOtpVerified: (value) {
-                                                widgetRef
-                                                    .read(
-                                                        signinProvider.notifier)
-                                                    .changeOtpVerified();
+                                        builder: (context) {
+                                          log("lll-${View.of(context).viewInsets.bottom}",
+                                              name: "View");
+                                          log("lll-${MediaQuery.of(context).viewInsets.bottom}",
+                                              name: "MediaQuery");
+                                          return CustomBottomSheet(
+                                            child: Obx(
+                                              () {
+                                                return Padding(
+                                                  padding: EdgeInsets.only(
+                                                      bottom: signinController
+                                                                  .keyboardOn
+                                                                  .value ||
+                                                              (View.of(context)
+                                                                          .viewInsets
+                                                                          .bottom !=
+                                                                      0.0 ||
+                                                                  (MediaQuery.of(
+                                                                              context)
+                                                                          .viewInsets
+                                                                          .bottom !=
+                                                                      0.0))
+                                                          ? 180
+                                                          : 0),
+                                                  child: CustomOtpWidget(
+                                                    countryCode:
+                                                        signinController
+                                                            .countryCode.value,
+                                                    phoneController:
+                                                        signinController
+                                                            .phoneController
+                                                            .value
+                                                            .text,
+                                                    otpController:
+                                                        signinController
+                                                            .otpController
+                                                            .value,
+                                                    // isOtpVerified:
+                                                    //     loginProvider.isOtpValid,
+                                                    isOtpVerified:
+                                                        signinController
+                                                            .isOtpVerified
+                                                            .value,
+                                                    otpControllerClear: () {
+                                                      Navigator.pop(context);
+                                                      signinController
+                                                          .otpController.value
+                                                          .clear();
+                                                      _phoneFocusNode
+                                                          .requestFocus();
+                                                    },
+                                                    verifyOTP: (value) async {
+                                                      signinController
+                                                          .setKeyboardOn(false);
+                                                      await signinController
+                                                          .verifyOTP(
+                                                              context: context);
+                                                    },
+                                                    changeOtpVerified: (value) {
+                                                      if (View.of(context)
+                                                              .viewInsets
+                                                              .bottom >
+                                                          0.0) {
+                                                        signinController
+                                                            .setKeyboardOn(
+                                                                true);
+                                                      } else {
+                                                        signinController
+                                                            .setKeyboardOn(
+                                                                false);
+                                                      }
+                                                      signinController
+                                                          .changeOtpVerified();
+                                                    },
+                                                    onTap: () {
+                                                      signinController
+                                                          .setKeyboardOn(true);
+                                                    },
+                                                  ),
+                                                );
                                               },
                                             ),
-                                          ),
-                                        ),
+                                          );
+                                        },
                                       );
                                     } else if (userExist! && !userActive) {
                                       // ignore: use_build_context_synchronously
@@ -288,11 +322,8 @@ class _SigninOtpScreenState extends State<SigninOtpScreen> {
                                       message: 'Something went wrong',
                                     );
                                   }
-                                } else if (widgetRef
-                                    .watch(signinProvider.select(
-                                        (value) => value.phoneController))
-                                    .text
-                                    .isEmpty) {
+                                } else if (signinController
+                                    .phoneController.value.text.isEmpty) {
                                   CustomSnackbar.showSnackbar(
                                       context: context,
                                       message: 'Please enter Phone number');
@@ -302,127 +333,124 @@ class _SigninOtpScreenState extends State<SigninOtpScreen> {
                                       message: 'Enter a valid Phone number');
                                 }
                               },
-                              textStyle: widgetRef.watch(signinProvider
-                                      .select((value) => value.isPhoneComplete))
+                              textStyle: signinController.isPhoneComplete.value
                                   ? AppTextStyles.f16W600Black
                                   : AppTextStyles.f16W600Grey3,
                             ),
-                          ),
-                          SizedBox(height: 150 * SizeConfig.heightMultiplier!),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  height: 1,
-                                  color: AppColors.white.withOpacity(0.1),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 16,
-                              ),
-                              const Text(
-                                'OR',
-                                style: AppTextStyles.f14W400White,
-                              ),
-                              const SizedBox(
-                                width: 16,
-                              ),
-                              Expanded(
-                                child: Container(
-                                  height: 1,
-                                  color: AppColors.white.withOpacity(0.1),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          CustomButton(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 4 * SizeConfig.heightMultiplier!,
+                          );
+                        },
+                      ),
+                      SizedBox(height: 150 * SizeConfig.heightMultiplier!),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 1,
+                              color: AppColors.white.withOpacity(0.1),
                             ),
-                            height: 48 * SizeConfig.heightMultiplier!,
-                            icon: Row(
-                              children: [
-                                Image.asset(
-                                  ImagePath.icPassword,
-                                  height: 28 * SizeConfig.heightMultiplier!,
-                                ),
-                                const SizedBox(width: 4),
-                              ],
-                            ),
-                            //const Icon(Icons.phone_iphone_sharp),
-                            textStyle: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "SF-Pro",
-                                color: AppColors.black2,
-                                letterSpacing: .0025),
-                            color: AppColors.white,
-                            title: 'Sign in with Password',
-                            onTap: () {
-                              Navigator.pushReplacementNamed(
-                                context,
-                                AppRoutes.signinPasswordScreen,
-                              );
-                            },
                           ),
-                          SizedBox(height: 8 * SizeConfig.heightMultiplier!),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                "Don't have an account?",
-                                style: AppTextStyles.f12W400White,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamedAndRemoveUntil(
-                                    context,
-                                    AppRoutes.userDetailsScreen,
-                                    (route) => false,
-                                  );
-                                },
-                                child: const Text(
-                                  "Sign up",
-                                  style: AppTextStyles.f15W500Blue,
-                                ),
-                              )
-                            ],
+                          const SizedBox(
+                            width: 16,
                           ),
-                          SizedBox(height: 24 * SizeConfig.heightMultiplier!),
-                          RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                              text:
-                                  'By signing in or continuing, you agree to our ',
-                              style: AppTextStyles.f12W300Grey5.copyWith(
-                                height: 1.5,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: 'Terms \n& Conditions ',
-                                  style: AppTextStyles.f12W400White,
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {},
-                                ),
-                                const TextSpan(
-                                  text: 'and',
-                                  style: AppTextStyles.f12W300Grey5,
-                                ),
-                                TextSpan(
-                                  text: ' Privacy Policies',
-                                  style: AppTextStyles.f12W400White,
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {},
-                                ),
-                              ],
+                          const Text(
+                            'OR',
+                            style: AppTextStyles.f14W400White,
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 1,
+                              color: AppColors.white.withOpacity(0.1),
                             ),
                           ),
                         ],
-                      );
-                    },
+                      ),
+                      const SizedBox(height: 20),
+                      CustomButton(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 4 * SizeConfig.heightMultiplier!,
+                        ),
+                        height: 48 * SizeConfig.heightMultiplier!,
+                        icon: Row(
+                          children: [
+                            Image.asset(
+                              ImagePath.icPassword,
+                              height: 28 * SizeConfig.heightMultiplier!,
+                            ),
+                            const SizedBox(width: 4),
+                          ],
+                        ),
+                        //const Icon(Icons.phone_iphone_sharp),
+                        textStyle: const TextStyle(
+                            fontSize: 14,
+                            fontFamily: "SF-Pro",
+                            color: AppColors.black2,
+                            letterSpacing: .0025),
+                        color: AppColors.white,
+                        title: 'Sign in with Password',
+                        onTap: () {
+                          Navigator.pushReplacementNamed(
+                            context,
+                            AppRoutes.signinPasswordScreen,
+                          );
+                        },
+                      ),
+                      SizedBox(height: 8 * SizeConfig.heightMultiplier!),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Don't have an account?",
+                            style: AppTextStyles.f12W400White,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                AppRoutes.userDetailsScreen,
+                                (route) => false,
+                              );
+                            },
+                            child: const Text(
+                              "Sign up",
+                              style: AppTextStyles.f15W500Blue,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 24 * SizeConfig.heightMultiplier!),
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          text:
+                              'By signing in or continuing, you agree to our ',
+                          style: AppTextStyles.f12W300Grey5.copyWith(
+                            height: 1.5,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: 'Terms \n& Conditions ',
+                              style: AppTextStyles.f12W400White,
+                              recognizer: TapGestureRecognizer()..onTap = () {},
+                            ),
+                            const TextSpan(
+                              text: 'and',
+                              style: AppTextStyles.f12W300Grey5,
+                            ),
+                            TextSpan(
+                              text: ' Privacy Policies',
+                              style: AppTextStyles.f12W400White,
+                              recognizer: TapGestureRecognizer()..onTap = () {},
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

@@ -1,5 +1,5 @@
 import 'package:anime_fandom/constants/app_colors.dart';
-import 'package:anime_fandom/features/dashboard/controllers/home_screen_controller.dart';
+import 'package:anime_fandom/features/dashboard/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -12,8 +12,7 @@ class CustomBottomNavBar extends StatefulWidget {
 }
 
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
-  final HomeScreenController homeScreenController =
-      Get.put(HomeScreenController());
+  final HomeController homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -23,11 +22,10 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: GNav(
-              selectedIndex: homeScreenController.selectedIndex.value,
-              // ref.watch(homeController.select((value) => value.selectedIndex)),
+              selectedIndex: homeController.selectedIndex.value,
               onTabChange: (index) {
-                homeScreenController.pageController.value.jumpToPage(index);
-                homeScreenController.onPageChanged(index);
+                homeController.pageController.value.jumpToPage(index);
+                homeController.onPageChanged(index);
               },
               gap: 6,
               iconSize: 24,

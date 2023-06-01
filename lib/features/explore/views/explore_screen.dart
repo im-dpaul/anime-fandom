@@ -1,5 +1,5 @@
 import 'package:anime_fandom/constants/image_path.dart';
-import 'package:anime_fandom/features/dashboard/controllers/home_screen_controller.dart';
+import 'package:anime_fandom/features/dashboard/controllers/home_controller.dart';
 import 'package:anime_fandom/features/explore/views/single_post_widget.dart';
 import 'package:anime_fandom/routes/app_routes.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_sliver_app_bar.dart';
@@ -14,11 +14,10 @@ class ExploreScreen extends StatefulWidget {
 }
 
 class _ExploreScreenState extends State<ExploreScreen> {
-  final HomeScreenController homeScreenController =
-      Get.put(HomeScreenController());
+  final HomeController homeController = Get.put(HomeController());
   @override
   void initState() {
-    homeScreenController.addScrollListener();
+    homeController.addScrollListener();
     super.initState();
   }
 
@@ -27,7 +26,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     return Scaffold(
       body: NestedScrollView(
         floatHeaderSlivers: true,
-        controller: homeScreenController.scrollController.value,
+        controller: homeController.scrollController.value,
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             CustomSliverAppBar(

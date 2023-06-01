@@ -1,4 +1,4 @@
-import 'package:anime_fandom/features/dashboard/controllers/home_screen_controller.dart';
+import 'package:anime_fandom/features/dashboard/controllers/home_controller.dart';
 import 'package:anime_fandom/features/explore/views/explore_screen.dart';
 import 'package:anime_fandom/features/favourite/views/favourite_screen.dart';
 import 'package:anime_fandom/features/new_post/views/create_post_screen.dart';
@@ -16,8 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final HomeScreenController homeScreenController =
-      Get.put(HomeScreenController());
+  final HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +24,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Obx(
         () {
           return PageView(
-            controller: homeScreenController.pageController.value,
+            controller: homeController.pageController.value,
             physics: const BouncingScrollPhysics(),
             onPageChanged: (value) {
-              homeScreenController.onPageChanged(value);
+              homeController.onPageChanged(value);
             },
             children: const [
               SearchScreen(),
@@ -43,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: Obx(
         () {
           return Visibility(
-            visible: homeScreenController.visibleBottomNavBar.value,
+            visible: homeController.visibleBottomNavBar.value,
             child: const CustomBottomNavBar(),
           );
         },

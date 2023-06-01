@@ -5,7 +5,7 @@ import 'package:anime_fandom/config/size_config.dart';
 import 'package:anime_fandom/constants/app_colors.dart';
 import 'package:anime_fandom/constants/app_text_styles.dart';
 import 'package:anime_fandom/constants/image_path.dart';
-import 'package:anime_fandom/features/explore/controllers/explore_screen_controller.dart';
+import 'package:anime_fandom/features/explore/controllers/explore_controller.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_dialog_widget.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_image_dialog.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_snackbar.dart';
@@ -21,8 +21,7 @@ class SinglePostWidget extends StatefulWidget {
 }
 
 class _SinglePostWidgetState extends State<SinglePostWidget> {
-  ExploreScreenController exploreScreenController =
-      Get.put(ExploreScreenController());
+  ExploreController exploreController = Get.put(ExploreController());
 
   @override
   Widget build(BuildContext context) {
@@ -242,8 +241,8 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                       onTap: () async {
                         const imageURL =
                             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0sLS2SqBx7sXmD1focHt76O0YCHwK2nYRA-jre3x8BcYaNu1iRXywYC_4tiI6tzan58M&usqp=CAU';
-                        String? path = await exploreScreenController
-                            .downloadImage(imageURL: imageURL);
+                        String? path = await exploreController.downloadImage(
+                            imageURL: imageURL);
                         if (path != null) {
                           try {
                             await Share.shareXFiles(

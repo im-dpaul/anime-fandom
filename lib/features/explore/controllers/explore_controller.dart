@@ -1,35 +1,11 @@
 import 'package:anime_fandom/features/explore/repository/explore_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
-class ExploreController {
-  bool visibleBottomNavBar = true;
-  ScrollController scrollController = ScrollController();
+class ExploreController extends GetxController {
+  RxBool visibleBottomNavBar = true.obs;
+  final scrollController = ScrollController().obs;
 
-  ExploreController({
-    required this.scrollController,
-    required this.visibleBottomNavBar,
-  });
-
-  ExploreController copyWith({
-    bool? visibleBottomNavBar,
-    ScrollController? scrollController,
-  }) {
-    return ExploreController(
-      scrollController: scrollController ?? this.scrollController,
-      visibleBottomNavBar: visibleBottomNavBar ?? this.visibleBottomNavBar,
-    );
-  }
-}
-
-class ExploreControllerNotifier extends StateNotifier<ExploreController> {
-  ExploreControllerNotifier()
-      : super(
-          ExploreController(
-            visibleBottomNavBar: true,
-            scrollController: ScrollController(),
-          ),
-        );
   final exploreRepository = ExploreRepository();
 
   // sharePost({required String imageURL}) async {

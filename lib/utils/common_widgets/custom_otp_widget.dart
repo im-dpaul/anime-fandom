@@ -14,6 +14,7 @@ class CustomOtpWidget extends StatefulWidget {
   final VoidCallback otpControllerClear;
   final void Function(String)? verifyOTP;
   final void Function(String)? changeOtpVerified;
+  final void Function()? onTap;
   // final VoidCallback verifyOTP;
   // final VoidCallback changeOtpVerified;
   CustomOtpWidget({
@@ -24,6 +25,7 @@ class CustomOtpWidget extends StatefulWidget {
     required this.otpControllerClear,
     required this.verifyOTP,
     required this.changeOtpVerified,
+    required this.onTap,
     super.key,
   });
 
@@ -52,7 +54,7 @@ class _CustomOtpWidgetState extends State<CustomOtpWidget> {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            height: 46 * SizeConfig.heightMultiplier!,
+            height: 10 * SizeConfig.heightMultiplier!,
           ),
           const Text(
             "OTP Verification",
@@ -137,6 +139,7 @@ class _CustomOtpWidgetState extends State<CustomOtpWidget> {
                 : defaultPinTheme.copyBorderWith(
                     border: Border.all(color: AppColors.red1),
                   ),
+            onTap: widget.onTap,
           ),
           SizedBox(
             height: 12 * SizeConfig.heightMultiplier!,

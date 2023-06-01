@@ -1,10 +1,10 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, must_be_immutable
 import 'dart:developer';
 
 import 'package:anime_fandom/config/size_config.dart';
 import 'package:anime_fandom/constants/app_colors.dart';
 import 'package:anime_fandom/constants/image_path.dart';
-import 'package:anime_fandom/features/explore/controllers/explore_screen_controller.dart';
+import 'package:anime_fandom/features/explore/controllers/explore_controller.dart';
 import 'package:anime_fandom/utils/common_methods/notification_controller.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_snackbar.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -16,8 +16,7 @@ class CustomImageDialog extends StatelessWidget {
   final String imageURL;
   CustomImageDialog({required this.imageURL, super.key});
 
-  ExploreScreenController exploreScreenController =
-      Get.put(ExploreScreenController());
+  ExploreController exploreController = Get.put(ExploreController());
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +42,8 @@ class CustomImageDialog extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: GestureDetector(
                         onTap: () async {
-                          String? path = await exploreScreenController
-                              .downloadImage(imageURL: imageURL, save: true);
+                          String? path = await exploreController.downloadImage(
+                              imageURL: imageURL, save: true);
 
                           if (path != null) {
                             final img = path.split('/')[6];
@@ -82,8 +81,8 @@ class CustomImageDialog extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: GestureDetector(
                         onTap: () async {
-                          String? path = await exploreScreenController
-                              .downloadImage(imageURL: imageURL);
+                          String? path = await exploreController.downloadImage(
+                              imageURL: imageURL);
                           if (path != null) {
                             try {
                               await Share.shareXFiles(
