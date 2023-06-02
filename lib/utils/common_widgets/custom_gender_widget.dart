@@ -30,7 +30,7 @@ class _CustomGenderWidgetState extends State<CustomGenderWidget> {
             children: [
               Container(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 21, horizontal: 24),
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 18),
                 height: 90 * SizeConfig.heightMultiplier!,
                 width: 90 * SizeConfig.widthMultiplier!,
                 decoration: BoxDecoration(

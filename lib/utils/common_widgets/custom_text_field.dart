@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:anime_fandom/config/size_config.dart';
 import 'package:anime_fandom/constants/app_colors.dart';
 import 'package:anime_fandom/constants/app_text_styles.dart';

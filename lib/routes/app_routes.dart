@@ -3,7 +3,9 @@ import 'package:anime_fandom/features/authentication/views/signin_otp_screen.dar
 import 'package:anime_fandom/features/authentication/views/signup_screen.dart';
 import 'package:anime_fandom/features/authentication/views/user_details_screen.dart';
 import 'package:anime_fandom/features/chat/views/chat_screen.dart';
-import 'package:anime_fandom/features/dashboard/views/home_screen.dart';
+import 'package:anime_fandom/features/home/views/home_screen.dart';
+import 'package:anime_fandom/features/favourite/views/favourite_screen.dart';
+import 'package:anime_fandom/features/new_post/views/create_post_screen.dart';
 import 'package:anime_fandom/features/notifications/views/notifications_screen.dart';
 import 'package:anime_fandom/features/profile/views/profile_screen.dart';
 import 'package:anime_fandom/features/search/views/search_screen.dart';
@@ -21,9 +23,12 @@ class AppRoutes {
 
   static const String homeScreen = '/homeScreen';
   static const String profileScreen = '/profileScreen';
+  static const String createPostScreen = '/createPostScreen';
+  static const String favouriteScreen = '/favouriteScreen';
   static const String searchScreen = '/searchScreen';
-  static const String chatScreen = '/chatScreen';
   static const String settingsScreen = '/settingsScreen';
+
+  static const String chatScreen = '/chatScreen';
   static const String notificationScreen = '/notificationScreen';
 }
 
@@ -71,6 +76,16 @@ class GenerateRoutes {
       case AppRoutes.profileScreen:
         return MaterialPageRoute(
           builder: (context) => const ProfileScreen(),
+        );
+
+      case AppRoutes.createPostScreen:
+        return MaterialPageRoute(
+          builder: (context) => const CreatePostScreen(),
+        );
+
+      case AppRoutes.favouriteScreen:
+        return MaterialPageRoute(
+          builder: (context) => const FavouriteScreen(),
         );
 
       case AppRoutes.searchScreen:

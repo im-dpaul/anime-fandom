@@ -2,20 +2,20 @@ import 'package:anime_fandom/constants/image_path.dart';
 import 'package:anime_fandom/utils/common_widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
-class NotificationScreen extends StatefulWidget {
-  const NotificationScreen({super.key});
+class CreatePostScreen extends StatefulWidget {
+  const CreatePostScreen({super.key});
 
   @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
+  State<CreatePostScreen> createState() => _CreatePostScreenState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> {
+class _CreatePostScreenState extends State<CreatePostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         parentContext: context,
-        title: "Notifications",
+        title: "Create Post",
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
@@ -35,7 +35,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         ],
       ),
       body: const Center(
-        child: Text("Notification"),
+        child: Text("Create Post"),
       ),
       // bottomNavigationBar: const CustomBottomNavBar(),
     );

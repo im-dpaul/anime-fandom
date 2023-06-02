@@ -385,6 +385,12 @@ class AppTextStyles {
     color: AppColors.grey4,
   );
 
+  static const f14W400Grey4 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: AppColors.grey4,
+  );
+
   static const f11W300Grey3 = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w300,
