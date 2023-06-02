@@ -3,7 +3,7 @@ import 'package:anime_fandom/features/authentication/views/signin_otp_screen.dar
 import 'package:anime_fandom/features/authentication/views/signup_screen.dart';
 import 'package:anime_fandom/features/authentication/views/user_details_screen.dart';
 import 'package:anime_fandom/features/chat/views/chat_screen.dart';
-import 'package:anime_fandom/features/dashboard/views/home_screen.dart';
+import 'package:anime_fandom/features/home/views/home_screen.dart';
 import 'package:anime_fandom/features/favourite/views/favourite_screen.dart';
 import 'package:anime_fandom/features/new_post/views/create_post_screen.dart';
 import 'package:anime_fandom/features/notifications/views/notifications_screen.dart';

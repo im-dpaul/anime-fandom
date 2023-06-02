@@ -14,7 +14,11 @@ import 'package:share_plus/share_plus.dart';
 import 'package:get/get.dart';
 
 class SinglePostWidget extends StatefulWidget {
-  const SinglePostWidget({super.key});
+  int index;
+  SinglePostWidget({
+    required this.index,
+    super.key,
+  });
 
   @override
   State<SinglePostWidget> createState() => _SinglePostWidgetState();
@@ -24,8 +28,13 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
   ExploreController exploreController = Get.put(ExploreController());
 
   @override
+  void initState() {
+    super.initState();
+    // exploreController.utcToLocalTime(widget.index, context);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    bool heart = true;
     return Container(
       decoration: BoxDecoration(
         gradient: AppColors.postGradient,
@@ -39,156 +48,240 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
           children: [
             Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 4,
-                    horizontal: 14,
-                  ),
-                  child: heart
-                      ? GestureDetector(
-                          onTap: () {},
-                          child: const CircleAvatar(
-                            radius: 22,
-                            backgroundColor: AppColors.date24,
-                            backgroundImage: //AssetImage(ImagePath.icUser),
-                                NetworkImage(
-                              'https://upload.wikimedia.org/wikipedia/commons/1/10/Zayn_Wiki_%28cropped%29.jpg',
-                              scale: 0.01,
+                Obx(
+                  () {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 4,
+                        horizontal: 14,
+                      ),
+                      child: exploreController.allPostModel.value
+                                  .posts![widget.index].avatar !=
+                              null
+                          ? GestureDetector(
+                              onTap: () {},
+                              child: CircleAvatar(
+                                radius: 22,
+                                backgroundColor: AppColors.grey3,
+                                backgroundImage: NetworkImage(
+                                  exploreController.allPostModel.value
+                                      .posts![widget.index].avatar!,
+                                  scale: 0.01,
+                                ),
+                              ),
+                            )
+                          : GestureDetector(
+                              onTap: () {},
+                              child: const CircleAvatar(
+                                radius: 22,
+                                backgroundColor: AppColors.date24,
+                                backgroundImage: AssetImage(ImagePath.icUser),
+                              ),
                             ),
-                          ),
-                        )
-                      : GestureDetector(
-                          onTap: () {},
-                          child: const CircleAvatar(
-                            radius: 22,
-                            backgroundColor: AppColors.date24,
-                            backgroundImage: AssetImage(ImagePath.icUser),
-                          ),
-                        ),
+                    );
+                  },
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: const Text(
-                        "Deb",
-                        style: AppTextStyles.f18W600White,
-                      ),
+                    Obx(
+                      () {
+                        return GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            "${exploreController.postUserName(widget.index)}",
+                            style: AppTextStyles.f18W600White,
+                          ),
+                        );
+                      },
                     ),
                     SizedBox(
                       height: 2 * SizeConfig.heightMultiplier!,
                     ),
-                    const Row(
-                      children: [
-                        Text(
-                          "2h",
-                          style: AppTextStyles.f14W400Grey5,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(6.0),
-                          child: Visibility(
-                            visible: true,
-                            child: CircleAvatar(
-                              radius: 2,
-                              backgroundColor: AppColors.grey5,
+                    Obx(
+                      () {
+                        return Row(
+                          children: [
+                            Text(
+                              "${exploreController.postTime(widget.index, context)}",
+                              style: AppTextStyles.f14W400Grey5,
                             ),
-                          ),
-                        ),
-                        Visibility(
-                          visible: true,
-                          child: Text(
-                            "Brentford",
-                            style: AppTextStyles.f14W400Grey5,
-                          ),
-                        ),
-                      ],
+                            Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Visibility(
+                                visible: exploreController.allPostModel.value
+                                        .posts![widget.index].location !=
+                                    null,
+                                child: const CircleAvatar(
+                                  radius: 2,
+                                  backgroundColor: AppColors.grey5,
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              visible: exploreController.allPostModel.value
+                                      .posts![widget.index].location !=
+                                  null,
+                              child: Text(
+                                "${exploreController.allPostModel.value.posts![widget.index].location}",
+                                style: AppTextStyles.f14W400Grey5,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ],
                 ),
               ],
             ),
-            const Visibility(
-              visible: true,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "One Direction, often shortened to 1D, are an English-Irish pop boy band formed in London in 2010. The group is composed of Niall Horan, Liam Payne, Harry Styles, Louis Tomlinson, and previously Zayn Malik until his departure from the group in March 2015.",
-                  style: AppTextStyles.f14W700Black,
-                ),
-              ),
-            ),
-            Visibility(
-              visible: true,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0),
-                child: SizedBox(
-                  height: 155 * SizeConfig.heightMultiplier!,
-                  width: SizeConfig.screenWidth,
-                  child: GestureDetector(
-                    onTap: () {
-                      customDialogWidget(
-                        context,
-                        CustomImageDialog(
-                          imageURL:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0sLS2SqBx7sXmD1focHt76O0YCHwK2nYRA-jre3x8BcYaNu1iRXywYC_4tiI6tzan58M&usqp=CAU',
-                          // 'https://i.pinimg.com/originals/b1/6f/17/b16f17057928954c7b93772a92b37e36.jpg',
-                        ),
-                      );
-                    },
-                    child: Image.network(
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0sLS2SqBx7sXmD1focHt76O0YCHwK2nYRA-jre3x8BcYaNu1iRXywYC_4tiI6tzan58M&usqp=CAU",
-                      fit: BoxFit.none,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Visibility(
-              visible: true,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  right: 10,
-                  top: 2,
-                  bottom: 2,
-                ),
-                child: SizedBox(
-                  height: 18 * SizeConfig.heightMultiplier!,
-                  width: SizeConfig.screenWidth,
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Visibility(
-                        visible: true,
+            if (exploreController.allPostModel.value.posts![widget.index]
+                .description!.isNotEmpty)
+              Obx(
+                () {
+                  return Visibility(
+                    visible: exploreController.allPostModel.value
+                            .posts![widget.index].description !=
+                        null,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "32k loves",
-                          style: AppTextStyles.f14W400White,
+                          "${exploreController.postDescription(widget.index)}",
+                          style: AppTextStyles.f14W700Black.copyWith(),
+                          textAlign: TextAlign.left,
                         ),
                       ),
-                      Visibility(
-                        visible: true,
-                        child: Padding(
-                          padding: EdgeInsets.all(6.0),
-                          child: CircleAvatar(
-                            radius: 2,
-                            backgroundColor: AppColors.grey5,
+                    ),
+                  );
+                },
+              ),
+            if (exploreController
+                    .allPostModel.value.posts![widget.index].content !=
+                null)
+              Obx(
+                () {
+                  return Visibility(
+                    visible: exploreController
+                            .allPostModel.value.posts![widget.index].content !=
+                        null,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: SizedBox(
+                        height: 155 * SizeConfig.heightMultiplier!,
+                        width: SizeConfig.screenWidth,
+                        child: GestureDetector(
+                          onTap: () {
+                            customDialogWidget(
+                              context,
+                              CustomImageDialog(
+                                imageURL:
+                                    '${exploreController.postImageUrl(widget.index)}',
+                              ),
+                            );
+                          },
+                          child: Image.network(
+                            "${exploreController.postImageUrl(widget.index)}",
+                            fit: BoxFit.fitWidth,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              return Center(
+                                child: Container(
+                                  height: 35,
+                                  width: 35,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.grey4,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: GestureDetector(
+                                    onTap: () {},
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Image.asset(
+                                        ImagePath.icRefresh,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ),
-                      Visibility(
-                        visible: true,
-                        child: Text(
-                          "237 comments",
-                          style: AppTextStyles.f14W400White,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               ),
+            Obx(
+              () {
+                return Visibility(
+                  visible: exploreController.postCommentsMap[
+                              exploreController.postId(widget.index)] !=
+                          0 ||
+                      exploreController.postLikesMap[
+                              exploreController.postId(widget.index)] !=
+                          0,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 10,
+                      right: 10,
+                      top: 2,
+                      bottom: 2,
+                    ),
+                    child: SizedBox(
+                      height: 18 * SizeConfig.heightMultiplier!,
+                      width: SizeConfig.screenWidth,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Visibility(
+                            visible: exploreController.postLikesMap[
+                                    exploreController.postId(widget.index)] !=
+                                0,
+                            child: Text(
+                              "${exploreController.postLikes(widget.index, null)}",
+                              style: AppTextStyles.f14W400White,
+                            ),
+                          ),
+                          Visibility(
+                            visible: exploreController.postCommentsMap[
+                                        exploreController
+                                            .postId(widget.index)] !=
+                                    0 &&
+                                exploreController.postLikesMap[exploreController
+                                        .postId(widget.index)] !=
+                                    0,
+                            child: const Padding(
+                              padding: EdgeInsets.all(6.0),
+                              child: CircleAvatar(
+                                radius: 2,
+                                backgroundColor: AppColors.grey5,
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                            visible: exploreController.postCommentsMap[
+                                    exploreController.postId(widget.index)] !=
+                                0,
+                            child: Text(
+                              "${exploreController.postComments(widget.index)}",
+                              style: AppTextStyles.f14W400White,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -204,15 +297,22 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   // mainAxisSize: MainAxisSize.min,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        heart = !heart;
+                    Obx(
+                      () {
+                        return GestureDetector(
+                          onTap: () {
+                            exploreController.likePost(widget.index);
+                          },
+                          child: Image.asset(
+                            exploreController.postIsLikedMap[
+                                    exploreController.postId(widget.index)]
+                                ? ImagePath.icHeartOn
+                                : ImagePath.icHeartOff,
+                            height: 25,
+                            width: 25,
+                          ),
+                        );
                       },
-                      child: Image.asset(
-                        heart ? ImagePath.icHeartOn : ImagePath.icHeartOff,
-                        height: 25,
-                        width: 25,
-                      ),
                     ),
                     SizedBox(
                       width: 12 * SizeConfig.widthMultiplier!,
@@ -220,35 +320,72 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                     GestureDetector(
                       onTap: () {},
                       child: Image.asset(
-                        ImagePath.icCommentOn,
-                        height: heart ? 25 : 28,
-                        width: heart ? 25 : 28,
+                        exploreController.postCommentsMap[
+                                    exploreController.postId(widget.index)] !=
+                                0
+                            ? ImagePath.icCommentOn
+                            : ImagePath.icCommentOff,
+                        width: exploreController.postCommentsMap[
+                                    exploreController.postId(widget.index)] !=
+                                0
+                            ? 25
+                            : 28,
                       ),
                     ),
                     SizedBox(
                       width: 12 * SizeConfig.widthMultiplier!,
                     ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Image.asset(
-                        heart ? ImagePath.icStarOn : ImagePath.icStarOff,
-                        height: 25,
-                        width: 25,
-                      ),
+                    Obx(
+                      () {
+                        return GestureDetector(
+                          onTap: () {
+                            exploreController.setFavourite(widget.index);
+                          },
+                          child: Image.asset(
+                            exploreController.postIsFavouriteMap[
+                                    exploreController.postId(widget.index)]
+                                ? ImagePath.icStarOn
+                                : ImagePath.icStarOff,
+                            height: 25,
+                            width: 25,
+                          ),
+                        );
+                      },
                     ),
                     const Spacer(),
                     GestureDetector(
                       onTap: () async {
-                        const imageURL =
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0sLS2SqBx7sXmD1focHt76O0YCHwK2nYRA-jre3x8BcYaNu1iRXywYC_4tiI6tzan58M&usqp=CAU';
-                        String? path = await exploreController.downloadImage(
-                            imageURL: imageURL);
+                        String? path;
+                        if (exploreController.allPostModel.value
+                                .posts![widget.index].content !=
+                            null) {
+                          final imageURL = exploreController.allPostModel.value
+                              .posts![widget.index].content!.url!;
+                          path = await exploreController.downloadImage(
+                              imageURL: imageURL);
+                        }
+
                         if (path != null) {
                           try {
                             await Share.shareXFiles(
                               [XFile(path)],
-                              text:
-                                  'One Direction, often shortened to 1D, are an English-Irish pop boy band formed in London in 2010. The group is composed of Niall Horan, Liam Payne, Harry Styles, Louis Tomlinson, and previously Zayn Malik until his departure from the group in March 2015.',
+                              text: exploreController.allPostModel.value
+                                      .posts![widget.index].description ??
+                                  '',
+                              subject: 'Anime Fandom',
+                            );
+                          } catch (e) {
+                            log("Failed to share post",
+                                name: "SinglePostWidget()");
+                          }
+                        } else if (exploreController.allPostModel.value
+                                .posts![widget.index].content ==
+                            null) {
+                          try {
+                            await Share.share(
+                              exploreController.allPostModel.value
+                                      .posts![widget.index].description ??
+                                  '',
                               subject: 'Anime Fandom',
                             );
                           } catch (e) {

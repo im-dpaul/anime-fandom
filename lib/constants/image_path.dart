@@ -38,4 +38,5 @@ class ImagePath {
 
   static const icCancel = 'assets/images/ic_cancel.png';
   static const icDownload = 'assets/images/ic_download.png';
+  static const icRefresh = 'assets/images/ic_refresh.png';
 }

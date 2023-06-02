@@ -1,5 +1,5 @@
 import 'package:anime_fandom/constants/app_colors.dart';
-import 'package:anime_fandom/features/dashboard/controllers/home_controller.dart';
+import 'package:anime_fandom/features/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';

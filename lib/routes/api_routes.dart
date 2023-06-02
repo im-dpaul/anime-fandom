@@ -8,14 +8,18 @@ class ApiRoutes {
   static const signInWithPasswordURL = '$baseURL/api/v1/login';
   static const forgetPasswordURL = '';
 
-  // content URLs
-  static const getSingleContentURL = '';
-  static const getAllContentsURL = '';
-  static const postContentURL = '';
-  static const updateContentURL = '';
-
   // user URLs
   static const myProfileURL = '';
   static const editProfileURL = '';
   static const updatePasswordURL = '';
+
+  // Post URLs
+  static const getSinglePostURL = '';
+  static const getAllPostsURL = '$baseURL/api/v1/posts';
+  static const postPostURL = '';
+  static const updatePostURL = '';
+  static const likePostURL = '$baseURL/api/v1/posts/likes';
+
+  // Favourite URLs
+  static const setFavouriteURL = '$baseURL/api/v1/posts/favorites';
 }

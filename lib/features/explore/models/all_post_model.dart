@@ -1,23 +1,24 @@
 // To parse this JSON data, do
 //
-//     final postModel = postModelFromJson(jsonString);
+//     final allPostModel = allPostModelFromJson(jsonString);
 
 import 'dart:convert';
 
-PostModel postModelFromJson(String str) => PostModel.fromJson(json.decode(str));
+AllPostModel allPostModelFromJson(String str) =>
+    AllPostModel.fromJson(json.decode(str));
 
-String postModelToJson(PostModel data) => json.encode(data.toJson());
+String allPostModelToJson(AllPostModel data) => json.encode(data.toJson());
 
-class PostModel {
+class AllPostModel {
   bool? success;
   List<Post>? posts;
 
-  PostModel({
+  AllPostModel({
     this.success,
     this.posts,
   });
 
-  factory PostModel.fromJson(Map<String, dynamic> json) => PostModel(
+  factory AllPostModel.fromJson(Map<String, dynamic> json) => AllPostModel(
         success: json["success"],
         posts: json["posts"] == null
             ? []

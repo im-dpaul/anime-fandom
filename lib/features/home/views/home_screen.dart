@@ -1,4 +1,4 @@
-import 'package:anime_fandom/features/dashboard/controllers/home_controller.dart';
+import 'package:anime_fandom/features/home/controllers/home_controller.dart';
 import 'package:anime_fandom/features/explore/views/explore_screen.dart';
 import 'package:anime_fandom/features/favourite/views/favourite_screen.dart';
 import 'package:anime_fandom/features/new_post/views/create_post_screen.dart';
