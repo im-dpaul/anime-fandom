@@ -21,5 +21,6 @@ class ApiRoutes {
   static const likePostURL = '$baseURL/api/v1/posts/likes';
 
   // Favourite URLs
+  static const getAllFavouriteURL = '$baseURL/api/v1/posts/all/favorites';
   static const setFavouriteURL = '$baseURL/api/v1/posts/favorites';
 }

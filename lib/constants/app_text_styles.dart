@@ -11,6 +11,13 @@ class AppTextStyles {
     letterSpacing: 0.8,
   );
 
+  static const f12W700Black = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w700,
+    color: AppColors.black1,
+    letterSpacing: 0.8,
+  );
+
   static const f16W700Black = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w700,
@@ -248,6 +255,12 @@ class AppTextStyles {
     color: AppColors.white,
   );
 
+  static const f12W200White = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w200,
+    color: AppColors.white,
+  );
+
   static const f16W500White = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
@@ -323,6 +336,12 @@ class AppTextStyles {
     color: AppColors.whiteOpacity60,
   );
 
+  static TextStyle f16W400WhiteOpacity80 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.white.withOpacity(0.8),
+  );
+
   // ---------- Grey Colors ----------
 
   static const f14W400Grey5 = TextStyle(
@@ -377,6 +396,12 @@ class AppTextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w400,
     color: AppColors.grey5,
+  );
+
+  static TextStyle f16W400Grey5Opacity50 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.grey5.withOpacity(0.5),
   );
 
   static const f16W400Grey4 = TextStyle(
@@ -468,6 +493,7 @@ class AppTextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w400,
     color: AppColors.grey5,
+    letterSpacing: 0.6,
   );
 
   static const f16W400Grey2 = TextStyle(

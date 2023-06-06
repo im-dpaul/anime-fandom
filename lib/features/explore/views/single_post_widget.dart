@@ -56,8 +56,10 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                         horizontal: 14,
                       ),
                       child: exploreController.allPostModel.value
-                                  .posts![widget.index].avatar !=
-                              null
+                                      .posts![widget.index].avatar !=
+                                  null &&
+                              exploreController.allPostModel.value
+                                  .posts![widget.index].avatar!.isNotEmpty
                           ? GestureDetector(
                               onTap: () {},
                               child: CircleAvatar(
@@ -136,28 +138,31 @@ class _SinglePostWidgetState extends State<SinglePostWidget> {
                 ),
               ],
             ),
-            if (exploreController.allPostModel.value.posts![widget.index]
-                .description!.isNotEmpty)
-              Obx(
-                () {
-                  return Visibility(
-                    visible: exploreController.allPostModel.value
-                            .posts![widget.index].description !=
-                        null,
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "${exploreController.postDescription(widget.index)}",
-                          style: AppTextStyles.f14W700Black.copyWith(),
-                          textAlign: TextAlign.left,
+            if (exploreController
+                    .allPostModel.value.posts![widget.index].description !=
+                null)
+              if (exploreController.allPostModel.value.posts![widget.index]
+                  .description!.isNotEmpty)
+                Obx(
+                  () {
+                    return Visibility(
+                      visible: exploreController.allPostModel.value
+                              .posts![widget.index].description !=
+                          null,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "${exploreController.postDescription(widget.index)}",
+                            style: AppTextStyles.f14W700Black.copyWith(),
+                            textAlign: TextAlign.left,
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              ),
+                    );
+                  },
+                ),
             if (exploreController
                     .allPostModel.value.posts![widget.index].content !=
                 null)

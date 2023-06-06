@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:anime_fandom/constants/constant_data.dart';
 import 'package:anime_fandom/features/explore/models/all_post_model.dart';
 import 'package:anime_fandom/features/explore/repository/explore_repository.dart';
 import 'package:flutter/material.dart';
@@ -96,33 +97,37 @@ class ExploreController extends GetxController {
     if (dayDiff == 0) {
       dayDifference = TimeOfDay.fromDateTime(localTime).format(context);
     } else if (dayDiff == 1) {
-      dayDifference = 'Yesterday';
+      dayDifference = '1d';
     } else if (dayDiff == 2) {
-      dayDifference = '2 days ago';
+      dayDifference = '2d';
     } else if (dayDiff == 3) {
-      dayDifference = '3 days ago';
+      dayDifference = '3d';
     } else if (dayDiff == 4) {
-      dayDifference = '4 days ago';
+      dayDifference = '4d';
     } else if (dayDiff == 5) {
-      dayDifference = '5 days ago';
+      dayDifference = '5d';
     } else if (dayDiff == 6) {
-      dayDifference = '6 days ago';
+      dayDifference = '6d';
     } else if (dayDiff >= 7 && dayDiff <= 13) {
-      dayDifference = '1 week ago';
+      dayDifference = '1w';
     } else if (dayDiff >= 14 && dayDiff <= 20) {
-      dayDifference = '2 weeks ago';
+      dayDifference = '2w';
     } else if (dayDiff >= 21 && dayDiff <= 27) {
-      dayDifference = '3 weeks ago';
-    } else if (dayDiff >= 28 && dayDiff <= 59) {
-      dayDifference = '1 month ago';
-    } else if (dayDiff >= 60 && dayDiff <= 89) {
-      dayDifference = '2 months ago';
-    } else if (dayDiff >= 90 && dayDiff <= 119) {
-      dayDifference = '3 months ago';
-    } else if (dayDiff >= 180 && dayDiff <= 364) {
-      dayDifference = '6 months ago';
+      dayDifference = '3w';
+    } else if (dayDiff >= 28 && dayDiff <= 364) {
+      String day;
+      String month;
+      if (localTime.day < 10) {
+        day = "0${localTime.day}";
+      } else {
+        day = localTime.day.toString();
+      }
+
+      month = ConstantData.monthName[localTime.month - 1];
+
+      dayDifference = "$day $month";
     } else if (dayDiff >= 365 && dayDiff <= 730) {
-      dayDifference = '1 year ago';
+      dayDifference = '1y';
     } else {
       String day;
       String month;
@@ -131,12 +136,8 @@ class ExploreController extends GetxController {
       } else {
         day = localTime.day.toString();
       }
-      if (localTime.month < 10) {
-        month = "0${localTime.month}";
-      } else {
-        month = localTime.month.toString();
-      }
-      dayDifference = "$day.$month.${localTime.year}";
+      month = ConstantData.monthName[localTime.month - 1];
+      dayDifference = "$day $month ${localTime.year}";
     }
 
     return dayDifference;

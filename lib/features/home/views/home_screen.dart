@@ -1,3 +1,4 @@
+import 'package:anime_fandom/features/explore/controllers/explore_controller.dart';
 import 'package:anime_fandom/features/home/controllers/home_controller.dart';
 import 'package:anime_fandom/features/explore/views/explore_screen.dart';
 import 'package:anime_fandom/features/favourite/views/favourite_screen.dart';
@@ -17,6 +18,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final HomeController homeController = Get.put(HomeController());
+  final ExploreController exploreController = Get.put(ExploreController());
+
+  @override
+  void initState() {
+    super.initState();
+    exploreController.getAllPost();
+  }
 
   @override
   Widget build(BuildContext context) {

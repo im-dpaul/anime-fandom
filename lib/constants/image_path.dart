@@ -39,4 +39,10 @@ class ImagePath {
   static const icCancel = 'assets/images/ic_cancel.png';
   static const icDownload = 'assets/images/ic_download.png';
   static const icRefresh = 'assets/images/ic_refresh.png';
+  static const icMore = 'assets/images/ic_more.png';
+  static const icDustbin = 'assets/images/ic_dustbin.png';
+  static const icLink = 'assets/images/ic_link.png';
+  static const icLogout = 'assets/images/ic_logout.png';
+  static const icFallingStar = 'assets/images/ic_falling_star.png';
+  static const icStars = 'assets/images/ic_stars.png';
 }

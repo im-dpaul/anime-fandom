@@ -25,7 +25,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        exploreController.getAllPost();
+        // exploreController.getAllPost();
       },
     );
   }
@@ -63,33 +63,41 @@ class _ExploreScreenState extends State<ExploreScreen> {
         },
         body: Obx(
           () {
-            return SizedBox(
-              child: exploreController.isLoading.value
-                  // &&
-                  //         (exploreController.allPostModel == null)
-                  ? const ExploreScreenShimmer()
-                  : Padding(
-                      padding: const EdgeInsets.only(right: 8, left: 8, top: 0),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: exploreController
-                                  .allPostModel.value.posts!.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(bottom: 10.0),
-                                  child: SinglePostWidget(
-                                    index: index,
-                                  ),
-                                );
-                              },
+            return RefreshIndicator(
+              triggerMode: RefreshIndicatorTriggerMode.onEdge,
+              onRefresh: () async {
+                await exploreController.getAllPost();
+              },
+              child: SizedBox(
+                child: exploreController.isLoading.value
+                    // &&
+                    //         (exploreController.allPostModel == null)
+                    ? const ExploreScreenShimmer()
+                    : Padding(
+                        padding:
+                            const EdgeInsets.only(right: 8, left: 8, top: 0),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: exploreController
+                                    .allPostModel.value.posts!.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 10.0),
+                                    child: SinglePostWidget(
+                                      index: index,
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
+              ),
             );
           },
         ),
